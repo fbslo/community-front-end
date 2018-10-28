@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<title>Team Slovenia Steem</title>
+<meta charset="UTF-8">
+<meta author='@fbslo'>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://cdn.steemjs.com/lib/latest/steem.min.js"></script>
+<script src="https://cdn.rawgit.com/showdownjs/showdown/1.0.1/dist/showdown.min.js"></script>
+<style>
+html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
+a:link {
+    text-decoration: none;
+}
+</style>
+<body class="w3-light-grey" onload="start()">
+
+<!-- Page Container -->
+<div class="w3-content w3-margin-top" style="max-width:1400px;">
+
+  <!-- The Grid -->
+  <div class="w3-row-padding">
+
+    <!-- Left Column -->
+    <div class="w3-third">
+
+      <div class="w3-white w3-text-grey w3-card-4">
+        <div class="w3-display-container">
+          <center><img src="https://steemitimages.com/DQmdpKfDGQos7Z28R5naHDe2y1KPhVvg6ztgY93LKHrzkKQ/image.png" style="width:75%" alt="Logo"><center>
+        </div>
+        <div class="w3-container">
+          <p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>Team Slovenia -  Slovenska Steem Skupnost</p>
+          <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"><a href='https://steemit.com/@teamslovenia'></i>@teamslovenia</a></p>
+          <hr>
+
+          <p class="w3-large"><b><i class="fa fa-asterisk fa-fw w3-margin-right w3-text-teal"></i>Statistika</b></p>
+          <p class="w3-medium"><b>Za kategorijo <a href='https://steemit.com/created/teamslovenia'>#teamslovenia</a></b></p>
+          <p>Izplačila</p>
+          <div class="w3-light-grey w3-round-xlarge w3-small">
+            <div class="w3-container w3-center w3-round-xlarge w3-teal" id="payout"></div>
+          </div>
+          <p>Število komentarjev</p>
+          <div class="w3-light-grey w3-round-xlarge w3-small">
+            <div class="w3-container w3-center w3-round-xlarge w3-teal" id="comments-stats"></div>
+          </div>
+          <p>Število glasov</p>
+          <div class="w3-light-grey w3-round-xlarge w3-small">
+            <div class="w3-container w3-center w3-round-xlarge w3-teal" id="votes"></div>
+          </div>
+          <p>Število članov</p>
+          <div class="w3-light-grey w3-round-xlarge w3-small">
+            <div class="w3-container w3-center w3-round-xlarge w3-teal" id="members"></div>
+          </div>
+          <br>
+
+          <br>
+        </div>
+      </div><br>
+
+    <!-- End Left Column -->
+    </div>
+
+    <!-- Right Column -->
+    <div class="w3-twothird">
+      <div class="w3-container w3-card w3-white w3-margin-bottom">
+        <h3 class="w3-text-grey w3-padding-12">
+          <center>
+            <a onclick='last24h()' style="width:20% !important" class="w3-bar-item w3-button">Novo</a>
+            <a onclick='trending()' style="width:20% !important" class="w3-bar-item w3-button">Priljubljeno</a>
+            <a onclick='hot()' style="width:20% !important" class="w3-bar-item w3-button">Vroče</a>
+            <a onclick='comments()' style="width:20% !important" class="w3-bar-item w3-button">Komentarji</a>
+          </center>
+        </h3>
+      </div>
+
+      <div class="w3-container w3-card w3-white w3-margin-bottom">
+
+              <div id="start"></div>
+              <div id="output24h"></div>
+              <div id="trending"></div>
+              <div id="hot"></div>
+              <div id="comments"></div>
+
+    <!-- End Right Column -->
+    </div>
+
+  <!-- End Grid -->
+  </div>
+
+  <!-- End Page Container -->
+</div>
+
+<footer class="w3-container w3-teal w3-center w3-margin-top">
+  <p>Z &#10084; pripravil <a href='https://steemit.com/@fbslo'>@fbslo</a>, <a href='https://steemconnect.com/sign/account-witness-vote?account=&witness=fbslo&approve=true'>Steem Witness!</a></p>
+</footer>
+
+<!-- scripts -->
+
+<script>
+//start
+function start(){
+  document.getElementById('start').innerHTML = '<center><h2 class="w3-text-grey w3-padding-16">Dobrodošli</h2><h5 class="w3-opacity"><b>Novo - Vse objave v zadnjih 24-ih urah.<br>Priljubljeno - Objave z najvišjim izplačilom v dajšem časovnem obdobju (Trending).<br>Vroče - Objave z visokim izplačilom v krajšem časovnem obdobju (Hot).<br>Komentarji - Objave z največ komentarji.</b></h5></center>'
+}
+
+//payout & comment & votes
+steem.api.getTrendingTags('teamslovenia', 1, function(err, result_payout) {
+  function toCommas(value) {
+      return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+  var payout1 = toCommas(result_payout[0].total_payouts)
+  var commentsstats = result_payout[0].comments
+  var votes = toCommas(result_payout[0].net_votes)
+  var payout2 = payout1.split(" ")
+  var payout = payout2[0] + ' $'
+  document.getElementById("payout").innerHTML = payout;
+  document.getElementById("comments-stats").innerHTML = commentsstats;
+  document.getElementById("votes").innerHTML = votes;
+});
+
+//members
+steem.api.getFollowCount('teamslovenia', function(err, result_following_count) {
+  var members =  result_following_count.following_count
+  document.getElementById("members").innerHTML = members;
+});
+
+//posts
+var scanTag = "teamslovenia";
+//posts last 24h
+function last24h(){
+    var now = Date.now();
+    steem.api.getDiscussionsByCreated(
+      {
+      tag: scanTag,
+      limit: 100
+      },
+      function(err, result) {
+      console.log(err, result);
+
+      for (var i = 0 ; i < 1000 ; i++) {
+      var created = Date.parse(result[i].created);
+      if ((now - created) < 86400000)  {
+        var reputation = steem.formatter.reputation(result[i].author_reputation);
+        var converter = new showdown.Converter(),
+        text = result[i].body,
+        html = converter.makeHtml(text);
+        var createdfirst = result[i].created.split('T')[0]
+        var created = createdfirst.split("-")
+        var payoutpost = result[i].pending_payout_value.split(" ")[0]
+        document.getElementById('output24h').innerHTML += '<div class="w3-container"><h5 class="w3-opacity"><b><a target="_blank" href=https://steemit.com/@' + result[i].author + '/' + result[i].permlink + '>' + result[i].title+'</a></b></h5><h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right" id="myBtn"></i>'+created[2]+'.'+
+        created[1]+'.'+created[0]+' - <span class="w3-tag w3-teal w3-round"><a target="_blank" href=https://steemit.com/@'+ result[i].author + '>' +
+        result[i].author +'</a></span></h6><h6 class="w3-text-teal"><p><i class="fa fa-thumbs-up"> '+result[i].net_votes+'</i>  -  <i class="fa fa-comment" aria-hidden="true"> '+result[i].children+'</i>  -  <i class="fa fa-usd" aria-hidden="true"> '+payoutpost+'</i></p><hr></h6></div>'
+        //remove other innerHTML
+        document.getElementById("trending").innerHTML = ""
+        document.getElementById("start").innerHTML = ""
+        document.getElementById("hot").innerHTML = ""
+        document.getElementById("comments").innerHTML = ""
+      }
+    }
+  });
+}
+
+//trending
+function trending(){
+  steem.api.getDiscussionsByTrending(
+    {
+    tag: scanTag,
+    limit: 25
+    },
+  function(err, result) {
+  console.log(err, result);
+for (var i = 0 ; i < 1000 ; i++) {
+    var reputation = steem.formatter.reputation(result[i].author_reputation);
+    var created = Date.parse(result[i].created);
+    var createdfirst = result[i].created.split('T')[0]
+    var created = createdfirst.split("-")
+    var payoutpost = result[i].pending_payout_value.split(" ")[0]
+    document.getElementById('trending').innerHTML += '<div class="w3-container"><h5 class="w3-opacity"><b><a target="_blank" href=https://steemit.com/@' + result[i].author + '/' + result[i].permlink + '>' + result[i].title+'</a></b></h5><h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right" id="myBtn"></i>'+created[2]+'.'+
+    created[1]+'.'+created[0]+' - <span class="w3-tag w3-teal w3-round"><a target="_blank" href=https://steemit.com/@'+ result[i].author + '>' +
+    result[i].author +'</a></span></h6><h6 class="w3-text-teal"><p><i class="fa fa-thumbs-up"> '+result[i].net_votes+'</i>  -  <i class="fa fa-comment" aria-hidden="true"> '+result[i].children+'</i>  -  <i class="fa fa-usd" aria-hidden="true"> '+payoutpost+'</i></p><hr></h6></div>'
+    //remove other innerHTML
+    document.getElementById("output24h").innerHTML = "";
+    document.getElementById("start").innerHTML = ""
+    document.getElementById("hot").innerHTML = ""
+    document.getElementById("comments").innerHTML = ""
+    }
+  });
+}
+
+//hot
+function hot(){
+  steem.api.getDiscussionsByHot(
+    {
+    tag: scanTag,
+    limit: 25
+    },
+  function(err, result) {
+  console.log(err, result);
+for (var i = 0 ; i < 1000 ; i++) {
+    var reputation = steem.formatter.reputation(result[i].author_reputation);
+    var created = Date.parse(result[i].created);
+    var createdfirst = result[i].created.split('T')[0]
+    var created = createdfirst.split("-")
+    var payoutpost = result[i].pending_payout_value.split(" ")[0]
+    document.getElementById('hot').innerHTML += '<div class="w3-container"><h5 class="w3-opacity"><b><a target="_blank" href=https://steemit.com/@' + result[i].author + '/' + result[i].permlink + '>' + result[i].title+'</a></b></h5><h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right" id="myBtn"></i>'+created[2]+'.'+
+    created[1]+'.'+created[0]+' - <span class="w3-tag w3-teal w3-round"><a target="_blank" href=https://steemit.com/@'+ result[i].author + '>' +
+    result[i].author +'</a></span></h6><h6 class="w3-text-teal"><p><i class="fa fa-thumbs-up"> '+result[i].net_votes+'</i>  -  <i class="fa fa-comment" aria-hidden="true"> '+result[i].children+'</i>  -  <i class="fa fa-usd" aria-hidden="true"> '+payoutpost+'</i></p><hr></h6></div>'
+    //remove other innerHTML
+    document.getElementById("output24h").innerHTML = "";
+    document.getElementById("start").innerHTML = ""
+    document.getElementById("trending").innerHTML = ""
+    document.getElementById("comments").innerHTML = ""
+    }
+  });
+}
+
+//sort by comments
+function comments(){
+  steem.api.getDiscussionsByChildren(
+    {
+    tag: scanTag,
+    limit: 25
+    },
+  function(err, result) {
+  console.log(err, result);
+for (var i = 0 ; i < 1000 ; i++) {
+    var reputation = steem.formatter.reputation(result[i].author_reputation);
+    var created = Date.parse(result[i].created);
+    var createdfirst = result[i].created.split('T')[0]
+    var created = createdfirst.split("-")
+    var payoutpost = result[i].pending_payout_value.split(" ")[0]
+    document.getElementById('comments').innerHTML += '<div class="w3-container"><h5 class="w3-opacity"><b><a target="_blank" href=https://steemit.com/@' + result[i].author + '/' + result[i].permlink + '>' + result[i].title+'</a></b></h5><h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right" id="myBtn"></i>'+created[2]+'.'+
+    created[1]+'.'+created[0]+' - <span class="w3-tag w3-teal w3-round"><a target="_blank" href=https://steemit.com/@'+ result[i].author + '>' +
+    result[i].author +'</a></span></h6><h6 class="w3-text-teal"><p><i class="fa fa-thumbs-up"> '+result[i].net_votes+'</i>  -  <i class="fa fa-comment" aria-hidden="true"> '+result[i].children+'</i>  -  <i class="fa fa-usd" aria-hidden="true"> '+payoutpost+'</i></p><hr></h6></div>'
+    //remove other innerHTML
+    document.getElementById("output24h").innerHTML = "";
+    document.getElementById("start").innerHTML = ""
+    document.getElementById("trending").innerHTML = ""
+    document.getElementById("hot").innerHTML = ""
+    }
+  });
+}
+
+
+
+</script>
+
+
+</body>
+</html>
