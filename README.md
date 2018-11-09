@@ -3,4 +3,4 @@ Steem Front-end Website
 
 https://fbslo.net/teamslovenia.html
 
-Created by @fbslo. 
+Created by Steem witness @fbslo. 
