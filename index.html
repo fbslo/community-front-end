@@ -146,7 +146,7 @@ function last24h(){
         var payoutpost = result[i].pending_payout_value.split(" ")[0]
         document.getElementById('output24h').innerHTML += '<div class="w3-container"><h5 class="w3-opacity"><b><a target="_blank" href=https://steemit.com/@' + result[i].author + '/' + result[i].permlink + '>' + result[i].title+'</a></b></h5><h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right" id="myBtn"></i>'+created[2]+'.'+
         created[1]+'.'+created[0]+' - <span class="w3-tag w3-teal w3-round"><a target="_blank" href=https://steemit.com/@'+ result[i].author + '>' +
-        result[i].author +'</a></span></h6><h6 class="w3-text-teal"><p><i class="fa fa-thumbs-up"> '+result[i].net_votes+'</i>  -  <i class="fa fa-comment" aria-hidden="true"> '+result[i].children+'</i>  -  <i class="fa fa-usd" aria-hidden="true"> '+payoutpost+'</i></p><hr></h6></div>'
+        result[i].author +'</a></span></h6><h6 class="w3-text-teal"><p><i class="fa fa-thumbs-up"> '+result[i].active_votes.length+'</i>  -  <i class="fa fa-comment" aria-hidden="true"> '+result[i].children+'</i>  -  <i class="fa fa-usd" aria-hidden="true"> '+payoutpost+'</i></p><hr></h6></div>'
         //remove other innerHTML
         document.getElementById("trending").innerHTML = ""
         document.getElementById("start").innerHTML = ""
@@ -173,7 +173,7 @@ for (var i = 0 ; i < 1000 ; i++) {
     var payoutpost = result[i].pending_payout_value.split(" ")[0]
     document.getElementById('trending').innerHTML += '<div class="w3-container"><h5 class="w3-opacity"><b><a target="_blank" href=https://steemit.com/@' + result[i].author + '/' + result[i].permlink + '>' + result[i].title+'</a></b></h5><h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right" id="myBtn"></i>'+created[2]+'.'+
     created[1]+'.'+created[0]+' - <span class="w3-tag w3-teal w3-round"><a target="_blank" href=https://steemit.com/@'+ result[i].author + '>' +
-    result[i].author +'</a></span></h6><h6 class="w3-text-teal"><p><i class="fa fa-thumbs-up"> '+result[i].net_votes+'</i>  -  <i class="fa fa-comment" aria-hidden="true"> '+result[i].children+'</i>  -  <i class="fa fa-usd" aria-hidden="true"> '+payoutpost+'</i></p><hr></h6></div>'
+    result[i].author +'</a></span></h6><h6 class="w3-text-teal"><p><i class="fa fa-thumbs-up"> '+result[i].active_votes.length+'</i>  -  <i class="fa fa-comment" aria-hidden="true"> '+result[i].children+'</i>  -  <i class="fa fa-usd" aria-hidden="true"> '+payoutpost+'</i></p><hr></h6></div>'
     //remove other innerHTML
     document.getElementById("output24h").innerHTML = "";
     document.getElementById("start").innerHTML = ""
@@ -199,7 +199,7 @@ for (var i = 0 ; i < 1000 ; i++) {
     var payoutpost = result[i].pending_payout_value.split(" ")[0]
     document.getElementById('hot').innerHTML += '<div class="w3-container"><h5 class="w3-opacity"><b><a target="_blank" href=https://steemit.com/@' + result[i].author + '/' + result[i].permlink + '>' + result[i].title+'</a></b></h5><h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right" id="myBtn"></i>'+created[2]+'.'+
     created[1]+'.'+created[0]+' - <span class="w3-tag w3-teal w3-round"><a target="_blank" href=https://steemit.com/@'+ result[i].author + '>' +
-    result[i].author +'</a></span></h6><h6 class="w3-text-teal"><p><i class="fa fa-thumbs-up"> '+result[i].net_votes+'</i>  -  <i class="fa fa-comment" aria-hidden="true"> '+result[i].children+'</i>  -  <i class="fa fa-usd" aria-hidden="true"> '+payoutpost+'</i></p><hr></h6></div>'
+    result[i].author +'</a></span></h6><h6 class="w3-text-teal"><p><i class="fa fa-thumbs-up"> '+result[i].active_votes.length+'</i>  -  <i class="fa fa-comment" aria-hidden="true"> '+result[i].children+'</i>  -  <i class="fa fa-usd" aria-hidden="true"> '+payoutpost+'</i></p><hr></h6></div>'
     //remove other innerHTML
     document.getElementById("output24h").innerHTML = "";
     document.getElementById("start").innerHTML = ""
@@ -225,7 +225,7 @@ for (var i = 0 ; i < 1000 ; i++) {
     var payoutpost = result[i].pending_payout_value.split(" ")[0]
     document.getElementById('comments').innerHTML += '<div class="w3-container"><h5 class="w3-opacity"><b><a target="_blank" href=https://steemit.com/@' + result[i].author + '/' + result[i].permlink + '>' + result[i].title+'</a></b></h5><h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right" id="myBtn"></i>'+created[2]+'.'+
     created[1]+'.'+created[0]+' - <span class="w3-tag w3-teal w3-round"><a target="_blank" href=https://steemit.com/@'+ result[i].author + '>' +
-    result[i].author +'</a></span></h6><h6 class="w3-text-teal"><p><i class="fa fa-thumbs-up"> '+result[i].net_votes+'</i>  -  <i class="fa fa-comment" aria-hidden="true"> '+result[i].children+'</i>  -  <i class="fa fa-usd" aria-hidden="true"> '+payoutpost+'</i></p><hr></h6></div>'
+    result[i].author +'</a></span></h6><h6 class="w3-text-teal"><p><i class="fa fa-thumbs-up"> '+result[i].active_votes.length+'</i>  -  <i class="fa fa-comment" aria-hidden="true"> '+result[i].children+'</i>  -  <i class="fa fa-usd" aria-hidden="true"> '+payoutpost+'</i></p><hr></h6></div>'
     //remove other innerHTML
     document.getElementById("output24h").innerHTML = "";
     document.getElementById("start").innerHTML = ""
